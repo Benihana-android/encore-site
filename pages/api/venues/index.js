@@ -1,5 +1,7 @@
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import { geocodeLocation } from "../../../lib/geocode";
+import { verifyTurnstile, getClientIp } from "../../../lib/verifyTurnstile";
+import { checkRateLimit } from "../../../lib/rateLimit";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -9,8 +11,15 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const { name, city, capacity } = req.body;
+    const { name, city, capacity, turnstileToken } = req.body;
     if (!name?.trim() || !city?.trim()) return res.status(400).json({ error: "name and city required" });
+
+    const ip = getClientIp(req);
+    const humanCheck = await verifyTurnstile(turnstileToken, ip);
+    if (!humanCheck) return res.status(400).json({ error: "Bot check failed - please try again." });
+
+    const allowed = await checkRateLimit(ip, "venues");
+    if (!allowed) return res.status(429).json({ error: "Too many submissions from this connection recently - try again later." });
 
     // Duplicate check: same name + city, case-insensitive
     const { data: existing } = await supabaseAdmin
@@ -35,6 +44,7 @@ export default async function handler(req, res) {
         capacity: capacity || "—",
         latitude: geo?.lat ?? null,
         longitude: geo?.lon ?? null,
+        ip_address: ip,
       })
       .select()
       .single();

@@ -1,5 +1,7 @@
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import { geocodeLocation } from "../../../lib/geocode";
+import { verifyTurnstile, getClientIp } from "../../../lib/verifyTurnstile";
+import { checkRateLimit } from "../../../lib/rateLimit";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -12,8 +14,15 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const { artist, date, venueMode, venueId, newVenueName, newVenueCity } = req.body;
+    const { artist, date, venueMode, venueId, newVenueName, newVenueCity, turnstileToken } = req.body;
     if (!artist?.trim() || !date) return res.status(400).json({ error: "artist and date required" });
+
+    const ip = getClientIp(req);
+    const humanCheck = await verifyTurnstile(turnstileToken, ip);
+    if (!humanCheck) return res.status(400).json({ error: "Bot check failed - please try again." });
+
+    const allowed = await checkRateLimit(ip, "concerts");
+    if (!allowed) return res.status(429).json({ error: "Too many submissions from this connection recently - try again later." });
 
     let finalVenueId = venueId;
 
@@ -61,7 +70,7 @@ export default async function handler(req, res) {
 
     const { data: concert, error } = await supabaseAdmin
       .from("concerts")
-      .insert({ artist: artist.trim(), venue_id: finalVenueId, event_date: date })
+      .insert({ artist: artist.trim(), venue_id: finalVenueId, event_date: date, ip_address: ip })
       .select()
       .single();
 

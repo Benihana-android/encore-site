@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Turnstile from "../../components/Turnstile";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
 
 export async function getServerSideProps() {
@@ -18,6 +19,7 @@ export default function AddConcert({ venues }) {
   const [newVenueCity, setNewVenueCity] = useState("");
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   const submit = async () => {
     if (!artist.trim() || !date) { setError("Add an artist and a date."); return; }
@@ -30,14 +32,14 @@ export default function AddConcert({ venues }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           artist: artist.trim(), date, venueMode, venueId,
-          newVenueName: newVenueName.trim(), newVenueCity: newVenueCity.trim(),
+          newVenueName: newVenueName.trim(), newVenueCity: newVenueCity.trim(), turnstileToken,
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "failed");
       router.push(`/concerts/${data.id}${data.matched ? "?matched=1" : ""}`);
     } catch (e) {
-      setError("Something went wrong — try again.");
+      setError(e.message);
       setSaving(false);
     }
   };
@@ -63,6 +65,7 @@ export default function AddConcert({ venues }) {
             <input className="text-input" placeholder="City, State" value={newVenueCity} onChange={(e) => setNewVenueCity(e.target.value)} />
           </>
         )}
+        <Turnstile onVerify={setTurnstileToken} />
         {error && <p className="error-note">{error}</p>}
         <button className="post-btn" style={{ background: "#FFB627" }} onClick={submit} disabled={saving}>
           {saving ? "Saving…" : "Continue to rate it"}
