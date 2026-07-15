@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+* { box-sizing: border-box; }
+html, body { padding: 0; margin: 0; background: #0B0B0F; color: #F2EFE9; font-family: 'Inter', sans-serif; }
+a { color: inherit; text-decoration: none; }
+
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid #232329; position: sticky; top: 0; background: #0B0B0Fee; backdrop-filter: blur(6px); z-index: 10; }
+.logo { font-family: 'Anton', sans-serif; letter-spacing: 0.08em; font-size: 22px; display: flex; align-items: center; gap: 8px; }
+.nav-tabs { display: flex; gap: 4px; align-items: center; }
+.nav-tab { background: none; border: none; color: #8B8B96; font-family: 'Inter'; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 20px; cursor: pointer; }
+.nav-tab.active { color: #0B0B0F; background: #F2EFE9; }
+.icon-btn { background: none; border: 1px solid #2a2a33; color: #ACAAB4; border-radius: 8px; padding: 7px 8px; cursor: pointer; margin-left: 6px; display: flex; }
+
+.hero { padding: 64px 24px 40px; text-align: center; border-bottom: 1px solid #1c1c22; background: radial-gradient(ellipse at top, #1a1a22 0%, #0B0B0F 70%); }
+.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #FFB627; margin-bottom: 14px; text-transform: uppercase; }
+.hero h1 { font-family: 'Anton', sans-serif; font-size: clamp(42px, 9vw, 84px); letter-spacing: 0.02em; margin: 0; line-height: 0.95; background: linear-gradient(180deg, #F2EFE9, #b8b6ad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tagline { font-size: 16px; color: #ACAAB4; max-width: 480px; margin: 18px auto 0; }
+.hero-cta-row { display: flex; gap: 14px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+.cta-btn { font-family: 'Inter'; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 8px; border: 1px solid; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.cta-btn.amber { background: #FFB627; border-color: #FFB627; color: #0B0B0F; }
+.cta-btn.teal { background: transparent; border-color: #2DD4BF; color: #2DD4BF; }
+
+.section { padding: 46px 24px 10px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; max-width: 1080px; margin-left: auto; margin-right: auto; flex-wrap: wrap; gap: 10px; }
+.section-head h2 { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 0.03em; margin: 0; }
+.head-right { display: flex; align-items: center; gap: 14px; }
+.small-add-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid #2a2a33; color: #DCDAD2; font-size: 13px; font-weight: 600; padding: 7px 12px; border-radius: 8px; cursor: pointer; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; max-width: 1080px; margin: 0 auto; }
+
+.ticket-card { position: relative; text-align: left; border: 1px solid #2a2a33; border-radius: 14px; padding: 18px 18px 16px; cursor: pointer; overflow: hidden; min-height: 150px; display: flex; flex-direction: column; }
+.ticket-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.ticket-kind { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; display: flex; align-items: center; gap: 5px; }
+.ticket-score { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; }
+.ticket-title { font-family: 'Anton', sans-serif; font-size: 20px; margin-bottom: 4px; }
+.ticket-sub { font-size: 13px; color: #ACAAB4; margin-bottom: auto; }
+.ticket-meta { font-size: 12px; color: #6d6d78; margin-top: 14px; font-family: 'JetBrains Mono', monospace; }
+.ticket-perf { position: absolute; left: 0; right: 0; bottom: 46px; border-top: 2px dashed #33333c; }
+.ticket-notch { position: absolute; bottom: 40px; width: 16px; height: 16px; background: #0B0B0F; border-radius: 50%; }
+.ticket-notch.left { left: -8px; } .ticket-notch.right { right: -8px; }
+
+.meter-row { display: flex; align-items: flex-end; gap: 2px; }
+.meter-bar { width: 4px; border-radius: 2px 2px 0 0; }
+.no-rating-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6d6d78; }
+
+.price-block { border: 1px solid #232329; border-radius: 14px; padding: 18px; margin-bottom: 26px; }
+.price-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #1c1c22; }
+.price-row:last-child { border-bottom: none; }
+.price-source { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #ACAAB4; text-transform: uppercase; }
+.price-value { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; }
+.buy-link { font-size: 12px; color: #FFB627; }
+.no-price-note { color: #6d6d78; font-size: 13px; }
+
+.detail-page { max-width: 720px; margin: 0 auto; padding: 24px; }
+.back-btn { background: none; border: none; color: #ACAAB4; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; margin-bottom: 16px; padding: 0; }
+.detail-hero { border-radius: 16px; padding: 32px 26px; border: 1px solid #232329; margin-bottom: 26px; }
+.detail-kind { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.15em; }
+.detail-hero h1 { font-family: 'Anton', sans-serif; font-size: 34px; margin: 8px 0 6px; }
+.detail-sub { color: #ACAAB4; font-size: 14px; margin: 0; }
+
+.cats-block { border: 1px solid #232329; border-radius: 14px; padding: 6px 18px; margin-bottom: 26px; }
+.cat-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #1c1c22; gap: 20px; }
+.cat-row:last-child { border-bottom: none; }
+.cat-label { font-size: 13.5px; color: #DCDAD2; min-width: 180px; }
+.cat-meter { display: flex; align-items: center; gap: 10px; }
+.cat-score { font-family: 'JetBrains Mono', monospace; font-size: 13px; width: 32px; text-align: right; }
+
+.rate-panel { border: 1px solid #232329; border-radius: 14px; padding: 22px; margin-bottom: 26px; }
+.rate-heading { font-family: 'Anton', sans-serif; font-size: 17px; margin: 0 0 16px; }
+.fader-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.fader-label { font-size: 13px; color: #DCDAD2; min-width: 168px; }
+.fader-row input[type=range] { flex: 1; }
+.fader-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; width: 20px; text-align: right; }
+.text-input, .text-area, select.text-input { width: 100%; background: #151519; border: 1px solid #2a2a33; border-radius: 8px; color: #F2EFE9; padding: 10px 12px; font-size: 13.5px; margin-top: 10px; }
+.post-btn { margin-top: 14px; border: none; color: #0B0B0F; font-weight: 700; font-size: 13.5px; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+.venue-toggle { display: flex; gap: 8px; margin-top: 12px; }
+.toggle-btn { flex: 1; background: #151519; border: 1px solid #2a2a33; color: #ACAAB4; padding: 9px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; }
+.toggle-btn.active { color: #0B0B0F; background: #F2EFE9; border-color: #F2EFE9; }
+.error-note { color: #FF8A6B; font-size: 12.5px; margin: 10px 0 0; }
+
+.reviews-block { margin-bottom: 10px; }
+.review-card { border-bottom: 1px solid #1c1c22; padding: 14px 0; }
+.review-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6d6d78; }
+.review-text { margin: 6px 0 0; font-size: 14px; color: #DCDAD2; line-height: 1.5; }
+.empty-note { color: #6d6d78; font-size: 13px; }
+
+.footer-note { max-width: 1080px; margin: 40px auto 0; padding: 24px; color: #6d6d78; font-size: 12px; text-align: center; }
